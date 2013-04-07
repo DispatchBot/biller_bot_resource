@@ -6,10 +6,10 @@ Gem::Specification.new do |s|
   s.name        = "biller_bot_resource"
   s.version     = BillerBotResource::VERSION
   s.authors     = ["Brad Seefeld"]
-  s.email       = ["bradley.seefeld@gmail.com"]
-  s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.email       = ["support@dispatchbot.com"]
+  s.homepage    = "https://github.com/bradseefeld/biller_bot_resource"
+  s.summary     = %q{Common resources for the BillerBot API}
+  s.description = %q{Provides a set of Ruby classes for interacting with the BillerBot API}
 
   s.rubyforge_project = "biller_bot_resource"
 
