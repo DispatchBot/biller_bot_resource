@@ -16,9 +16,9 @@ class BillerBotResource::Invoice < BillerBotResource::Resource
     @attributes[:line_items]
   end
   
-  def save
-    @attributes[:line_items_attributes] = @attributes.delete :line_items
-    @attributes[:locations_attributes] = @attributes.delete :locations
+  def save(*args)
+    @attributes[:line_items_attributes] = @attributes.delete(:line_items)
+    @attributes[:locations_attributes] = @attributes.delete(:locations)
     super
   end
 end
