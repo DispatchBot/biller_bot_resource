@@ -21,4 +21,8 @@ class BillerBotResource::Invoice < BillerBotResource::Resource
     @attributes[:locations_attributes] = @attributes.delete(:locations)
     super
   end
+
+  def total_charge
+    line_items.map(&:total_charge).inject(:+)
+  end
 end
