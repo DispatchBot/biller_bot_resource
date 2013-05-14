@@ -10,6 +10,7 @@ class BillerBotResource::Resource < ActiveResource::Base
     
     self.site   = config.site
     self.logger = config.logger if config.logger
+    self.timeout = config.timeout
   end
   
   def self.config
