@@ -2,17 +2,17 @@ class BillerBotResource::Resource < ActiveResource::Base
 
   self.include_root_in_json = false
   self.format   = :json
-  
+
   ##
-  # Allow the resource to be configured via block style. 
+  # Allow the resource to be configured via block style.
   def self.configure
     yield config
-    
+
     self.site   = config.site
     self.logger = config.logger if config.logger
     self.timeout = config.timeout
   end
-  
+
   def self.config
     if defined?(@config)
       @config
@@ -23,7 +23,7 @@ class BillerBotResource::Resource < ActiveResource::Base
       @config
     end
   end
-  
+
   ##
   # Append the auth token to all of our queries. The easiest way to do this
   # is to override the query string method and inject it.
@@ -32,7 +32,7 @@ class BillerBotResource::Resource < ActiveResource::Base
     options[:auth_token] = config.api_key
     super(options)
   end
-  
+
   def self.instantiate_collection(collection, prefix_options = {})
     return super if collection.is_a? Array
     remote_collection = []
@@ -40,14 +40,20 @@ class BillerBotResource::Resource < ActiveResource::Base
     # TODO: Add additional keys to the remote collection
     remote_collection
   end
-  
+
   def initialize(attributes = {}, persisted = false)
     attributes = enrich_attributes(attributes)
     super(attributes, persisted)
   end
 
+  def save(*args)
+    @attributes.delete :created_at
+    @attributes.delete :updated_at
+    super
+  end
+
 protected
-  
+
   ##
   # Convert string values to more complex types such as Time.
   #
