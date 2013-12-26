@@ -52,6 +52,18 @@ class BillerBotResource::Resource < ActiveResource::Base
     super
   end
 
+  def cache_key
+    case
+    when new_record?
+      "#{self.class.name}/new"
+    when timestamp = @attributes[:updated_at]
+      timestamp = timestamp.utc.to_s(:number)
+      "#{self.class.name}/#{id}-#{timestamp}"
+    else
+      "#{self.class.name}/#{id}"
+    end
+  end
+
 protected
 
   ##
