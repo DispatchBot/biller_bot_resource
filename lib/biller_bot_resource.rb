@@ -1,3 +1,5 @@
+require "active_resource"
+
 require "biller_bot_resource/version"
 require "biller_bot_resource/resource"
 require "biller_bot_resource/configuration"

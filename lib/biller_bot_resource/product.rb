@@ -15,6 +15,29 @@ class BillerBotResource::Product < BillerBotResource::Resource
     # saved independently.
     def force_persisted
       @persisted = true
+
+      # Propogate to all children too.
+      contexts.each do |c|
+        c.product_id = product_id
+        c.force_persisted
+      end
+    end
+
+    ##
+    # Fetch all the children contexts with the given context type.
+    #
+    # @param  [String] type The type of context to be searching for
+    # @return [Array<BillerBotResource::Product::Context] The matching contexts
+    def children_with_type(type)
+      matches = contexts.select { |c| (c.type.downcase == type.to_s.downcase) }
+    end
+
+    ##
+    # Fetch all the child contexts in a flat structure. Also include myself.
+    #
+    # @return [Array<BillerBotResource::Product::Context>]
+    def descendants_with_self
+      [self, contexts.map(&:descendants_with_self)].flatten.uniq
     end
   end
 
@@ -29,6 +52,16 @@ class BillerBotResource::Product < BillerBotResource::Resource
   def contexts
     @attributes[:contexts] ||= []
     @attributes[:contexts]
+  end
+
+  def all_contexts
+    contexts.map(&:descendants_with_self).flatten
+  end
+
+  def context(id)
+    context = all_contexts.select { |c| c.id.try(:to_i) == id.try(:to_i) }.first
+    raise ActiveResource::ResourceNotFound.new(nil) if context.nil?
+    context
   end
 
   ##
