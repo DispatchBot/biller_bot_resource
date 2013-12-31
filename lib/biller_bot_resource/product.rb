@@ -64,7 +64,7 @@ class BillerBotResource::Product < BillerBotResource::Resource
       if parent && parent.quantity
         parent.quantity
       else
-        0
+        99999
       end
     end
   end
