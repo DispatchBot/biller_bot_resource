@@ -59,14 +59,6 @@ class BillerBotResource::Product < BillerBotResource::Resource
 
       nil
     end
-
-    def parent_quantity
-      if parent && parent.quantity
-        parent.quantity
-      else
-        99999
-      end
-    end
   end
 
   def initialize(*args)
