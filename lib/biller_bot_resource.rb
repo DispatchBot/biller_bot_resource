@@ -8,6 +8,8 @@ require "biller_bot_resource/location"
 require "biller_bot_resource/line_item"
 require "biller_bot_resource/invoice"
 require "biller_bot_resource/product"
+require "biller_bot_resource/organization"
+require "biller_bot_resource/user"
 
 module BillerBotResource
 
