@@ -33,10 +33,10 @@ class BillerBotResource::Resource < ActiveResource::Base
     super(options)
   end
 
-  def self.instantiate_collection(collection, prefix_options = {})
+  def self.instantiate_collection(collection, original_params = {}, prefix_options = {})
     return super if collection.is_a? Array
     remote_collection = []
-    remote_collection.concat super(collection["results"], prefix_options)
+    remote_collection.concat super(collection["results"], original_params, prefix_options)
     # TODO: Add additional keys to the remote collection
     remote_collection
   end
